@@ -1,0 +1,12 @@
+db:
+  dsn: "postgresql+psycopg2://username:password@db:5432/dbname"
+  is_echo: "yes"
+
+salt:
+  key: "013112331711233171317"
+
+jwt:
+  key: "1113211122331117"
+
+bot:
+  token: "6619515237:AAEvRdRfEIZg2I1EFAGiKvf3fB0A5tYcRsw"
