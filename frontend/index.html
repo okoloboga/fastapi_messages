@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messenger App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Главная страница -->
+    <div id="auth-page">
+        <div id="login-form">
+            <h2>Вход</h2>
+            <input type="text" id="login-username" placeholder="Username">
+            <input type="password" id="login-password" placeholder="Password">
+            <button onclick="login()">Войти</button>
+        </div>
+        <div id="register-form">
+            <h2>Регистрация</h2>
+            <input type="text" id="register-username" placeholder="Username">
+            <input type="text" id="register-telegram-id" placeholder="Telegram ID">
+            <input type="password" id="register-password" placeholder="Password">
+            <input type="password" id="register-password-confirm" placeholder="Confirm Password">
+            <button onclick="register()">Зарегистрироваться</button>
+        </div>
+    </div>
+
+    <!-- Личный кабинет -->
+    <div id="dashboard" style="display: none;">
+        <h2>Личный кабинет</h2>
+        <div id="send-message">
+            <h3>Отправить сообщение</h3>
+            <input type="text" id="recipient-username" placeholder="Получатель (username)">
+            <textarea id="message-text" placeholder="Текст сообщения"></textarea>
+            <button onclick="sendMessage()">Отправить</button>
+        </div>
+        <div id="receive-messages">
+            <h3>Входящие сообщения</h3>
+            <div id="messages-list"></div>
+        </div>
+        <div id="message-history">
+            <h3>История сообщений</h3>
+            <input type="text" id="history-username" placeholder="Username для истории">
+            <button onclick="getMessageHistory()">Запросить историю</button>
+            <div id="history-list"></div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
