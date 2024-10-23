@@ -1,34 +1,40 @@
-FROM python:3.12-slim AS backend-build
+# Используем базовый Python образ
+FROM python:3.12-slim
 
+# Устанавливаем рабочий каталог
 WORKDIR /app
 
-# Устанавливаем необходимые системные пакеты
-#RUN apt-get update && apt-get install -y gcc libffi-dev
+# Устанавливаем необходимые системные пакеты для работы с PostgreSQL и диагностики
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    nginx \
+    gcc \
+    iputils-ping \
+    net-tools \
+    procps \
+    curl \
+    supervisor && \
+    rm -rf /var/lib/apt/lists/*
 
 # Копируем файл зависимостей и устанавливаем их
 COPY backend/requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем остальные файлы бэкенда
+# Копируем все файлы backend
 COPY backend/ .
 
-# Stage 3: Final container
-FROM nginx:alpine
-
-# Копируем конфигурационный файл Nginx
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-
-# Копируем статические файлы фронтенда в Nginx
+# Копируем файлы frontend для сервировки через Nginx
 COPY frontend/ /usr/share/nginx/html
 
-# Копируем файлы бэкенда
-COPY --from=backend-build /app /app
+# Копируем конфигурацию для Nginx
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Устанавливаем рабочую директорию
-WORKDIR /app
+# Копируем конфигурацию для supervisord
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Порт для Nginx
+# Открываем порт для Nginx
 EXPOSE 80
 
-# Запуск backend (FastAPI через __main__.py), Telegram-бота и Nginx
-CMD ["sh", "-c", "python __main__.py & python app/bot.py & nginx -g 'daemon off;'"]
+# Запуск supervisord для управления всеми процессами
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

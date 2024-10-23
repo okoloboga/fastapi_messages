@@ -4,48 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messenger App</title>
+    <!-- Подключение стилей для страницы -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Главная страница -->
+    <!-- Главная страница для авторизации и регистрации -->
     <div id="auth-page">
+        <!-- Форма входа -->
         <div id="login-form">
             <h2>Вход</h2>
+            <!-- Поле для ввода имени пользователя -->
             <input type="text" id="login-username" placeholder="Username">
+            <!-- Поле для ввода пароля -->
             <input type="password" id="login-password" placeholder="Password">
+            <!-- Кнопка для выполнения входа -->
             <button onclick="login()">Войти</button>
         </div>
+
+        <!-- Форма регистрации -->
         <div id="register-form">
             <h2>Регистрация</h2>
+            <!-- Поле для ввода имени пользователя -->
             <input type="text" id="register-username" placeholder="Username">
+            <!-- Поле для ввода Telegram ID -->
             <input type="text" id="register-telegram-id" placeholder="Telegram ID">
+            <!-- Поле для ввода пароля -->
             <input type="password" id="register-password" placeholder="Password">
+            <!-- Поле для повторного ввода пароля -->
             <input type="password" id="register-password-confirm" placeholder="Confirm Password">
+            <!-- Кнопка для выполнения регистрации -->
             <button onclick="register()">Зарегистрироваться</button>
         </div>
     </div>
 
-    <!-- Личный кабинет -->
+    <!-- Личный кабинет пользователя -->
     <div id="dashboard" style="display: none;">
         <h2>Личный кабинет</h2>
+        <!-- Кнопка для выхода из системы -->
+        <button onclick="logout()">Выйти</button>
+
+        <!-- Раздел отправки сообщений -->
         <div id="send-message">
             <h3>Отправить сообщение</h3>
+            <!-- Поле для указания получателя -->
             <input type="text" id="recipient-username" placeholder="Получатель (username)">
+            <!-- Поле для ввода текста сообщения -->
             <textarea id="message-text" placeholder="Текст сообщения"></textarea>
+            <!-- Кнопка для отправки сообщения -->
             <button onclick="sendMessage()">Отправить</button>
         </div>
+
+        <!-- Раздел отображения входящих сообщений -->
         <div id="receive-messages">
             <h3>Входящие сообщения</h3>
+            <!-- Контейнер для отображения списка входящих сообщений -->
             <div id="messages-list"></div>
         </div>
+
+        <!-- Раздел истории сообщений -->
         <div id="message-history">
             <h3>История сообщений</h3>
+            <!-- Поле для указания пользователя, с которым будет запрашиваться история сообщений -->
             <input type="text" id="history-username" placeholder="Username для истории">
+            <!-- Кнопка для запроса истории сообщений -->
             <button onclick="getMessageHistory()">Запросить историю</button>
+            <!-- Контейнер для отображения списка исторических сообщений -->
             <div id="history-list"></div>
         </div>
     </div>
 
+    <!-- Подключение скриптов для функционала страницы -->
     <script src="scripts.js"></script>
 </body>
 </html>

@@ -1,59 +1,67 @@
+/* Стили для всего документа */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: Arial, sans-serif; /* Шрифт для всего документа */
+    background-color: #f0f0f0; /* Светло-серый фон для страницы */
+    margin: 0; /* Убираем отступы */
+    padding: 0; /* Убираем отступы */
+    display: flex; /* Используем флекс-контейнер */
+    justify-content: center; /* Центрируем элементы по горизонтали */
+    align-items: center; /* Центрируем элементы по вертикали */
+    height: 100vh; /* Высота страницы равна высоте окна браузера */
 }
 
+/* Стили для блока авторизации и личного кабинета */
 #auth-page, #dashboard {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    background-color: #ffffff; /* Белый фон для блока */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 8px; /* Закругленные углы */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень вокруг блока */
+    width: 300px; /* Ширина блока */
 }
 
+/* Стили для заголовков */
 h2, h3 {
-    text-align: center;
+    text-align: center; /* Центрируем текст заголовков */
 }
 
+/* Стили для текстовых полей, паролей и текстовых областей */
 input[type="text"], input[type="password"], textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    width: 100%; /* Ширина 100% от родительского блока */
+    padding: 10px; /* Внутренние отступы */
+    margin: 10px 0; /* Отступ сверху и снизу */
+    border: 1px solid #ccc; /* Серый цвет границы */
+    border-radius: 4px; /* Закругленные углы */
+    box-sizing: border-box; /* Включаем отступы и границы в ширину элемента */
 }
 
+/* Стили для кнопок */
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 100%; /* Ширина 100% от родительского блока */
+    padding: 10px; /* Внутренние отступы */
+    background-color: #007bff; /* Синий цвет фона */
+    color: white; /* Белый цвет текста */
+    border: none; /* Убираем границу */
+    border-radius: 4px; /* Закругленные углы */
+    cursor: pointer; /* Указатель мыши при наведении */
+    transition: background-color 0.3s; /* Плавное изменение цвета фона */
 }
 
+/* Стили для кнопок при наведении */
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Темно-синий цвет фона при наведении */
 }
 
+/* Стили для разделов входящих сообщений и истории сообщений */
 #receive-messages, #message-history {
-    margin-top: 20px;
+    margin-top: 20px; /* Отступ сверху */
 }
 
+/* Стили для списка сообщений и списка истории сообщений */
 #messages-list, #history-list {
-    max-height: 150px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 4px;
-    background-color: #f9f9f9;
+    max-height: 150px; /* Максимальная высота */
+    overflow-y: auto; /* Прокрутка по вертикали при переполнении */
+    border: 1px solid #ccc; /* Серый цвет границы */
+    padding: 10px; /* Внутренние отступы */
+    border-radius: 4px; /* Закругленные углы */
+    background-color: #f9f9f9; /* Светлый фон для контейнера сообщений */
 }

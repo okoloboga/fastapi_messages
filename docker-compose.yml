@@ -1,37 +1,50 @@
+version: "3.8"  # Версия Docker Compose
+
 services:
+  # Сервис базы данных (PostgreSQL)
   db:
-    image: postgres:13
-    restart: always
+    image: postgres:13  # Образ PostgreSQL версии 13
+    restart: always  # Автоматический перезапуск контейнера при сбоях
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: dbname
+      POSTGRES_USER: username  # Имя пользователя для базы данных
+      POSTGRES_PASSWORD: password  # Пароль для базы данных
+      POSTGRES_DB: dbname  # Имя базы данных
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data  # Персистентное хранилище для данных базы
     networks:
-      - mynetwork
+      - mynetwork  # Название сети, к которой подключен контейнер
 
-  app:
+  # Сервис бэкэнда (FastAPI)
+  backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
-    command: python ./__main__.py  
+      context: .  # Контекст сборки, директория с Dockerfile
+      dockerfile: ./backend/Dockerfile  # Путь к Dockerfile для сборки образа
     volumes:
-      - ./backend:/app
-      - ./frontend:/usr/share/nginx/html
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - "80:80"
-    depends_on:
-      - db
+      - ./backend:/app  # Монтируем директорию backend в контейнер
+    expose:
+      - "8000"  # Открываем порт 8000 (бэкэнд доступен внутри сети)
     environment:
-      DATABASE_URL: postgresql+psycopg2://username:password@db:5432/dbname
+      DATABASE_URL: postgresql+psycopg2://username:password@db:5432/dbname  # URL подключения к базе данных
     networks:
-      - mynetwork
+      - mynetwork  # Подключение к внутренней сети
 
+  # Сервис Nginx для проксирования и статических файлов (Frontend)
+  nginx:
+    image: nginx:latest  # Образ Nginx последней версии
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf  # Копируем конфигурационный файл для Nginx
+      - ./frontend:/usr/share/nginx/html  # Статические файлы фронтэнда
+    ports:
+      - "80:80"  # Прокидываем порт 80 для доступа к Nginx из внешней сети
+    depends_on:
+      - backend  # Указываем, что контейнер Nginx зависит от запуска бэкэнда
+    networks:
+      - mynetwork  # Подключение к внутренней сети
+
+# Определение внутренней сети
 networks:
   mynetwork:
 
+# Определение персистентного хранилища для PostgreSQL
 volumes:
   postgres_data:
-
