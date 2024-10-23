@@ -238,21 +238,24 @@ function logout() {
     document.getElementById('dashboard').style.display = 'none';
 }
 
-// Функция для получения списка пользователей
+// Функция для получения списка пользователей без авторизацииa
 async function fetchUsernames() {
     try {
         // Отправляем GET-запрос на получение списка пользователей
-        const response = await fetch('/users', {
+        const response = await fetch('/api/users', {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                'Content-Type': 'application/json'
             }
         });
 
+        // Логируем полный ответ для отладки
+        const textResponse = await response.text(); // Получаем текстовый ответ
+        console.log('Response text:', textResponse);
+
         if (response.ok) {
             // Получаем и отображаем список пользователей
-            const usernames = await response.json();
+            const usernames = JSON.parse(textResponse);
             const usersList = document.getElementById('users');
             usersList.innerHTML = ''; // Очищаем список перед обновлением
 
