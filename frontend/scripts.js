@@ -26,6 +26,10 @@ async function login() {
             // Переход в личный кабинет.
             document.getElementById('auth-page').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
+
+            // Загружаем список пользователей после входа в личный кабинет.
+            await fetchUsernames();
+
         } else {
             alert('Ошибка входа. Неверный логин или пароль');
         }
@@ -234,3 +238,33 @@ function logout() {
     document.getElementById('dashboard').style.display = 'none';
 }
 
+// Функция для получения списка пользователей
+async function fetchUsernames() {
+    try {
+        // Отправляем GET-запрос на получение списка пользователей
+        const response = await fetch('/users', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+
+        if (response.ok) {
+            // Получаем и отображаем список пользователей
+            const usernames = await response.json();
+            const usersList = document.getElementById('users');
+            usersList.innerHTML = ''; // Очищаем список перед обновлением
+
+            usernames.forEach(username => {
+                const listItem = document.createElement('li');
+                listItem.textContent = username;
+                usersList.appendChild(listItem);
+            });
+        } else {
+            alert('Ошибка при получении списка пользователей');
+        }
+    } catch (error) {
+        console.error('Ошибка при получении списка пользователей:', error);
+    }
+}

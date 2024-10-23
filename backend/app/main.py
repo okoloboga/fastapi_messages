@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI, WebSocket
 from app.database import engine, Base
-from app import auth, messages
+from app import auth, messages, users
 from app.websocket import websocket_endpoint
 
 
@@ -16,6 +16,7 @@ app = FastAPI()
 # auth.router - маршруты для регистрации и авторизации, messages.router - для работы с сообщениями.
 app.include_router(auth.router, prefix="/api")
 app.include_router(messages.router, prefix="/api")
+app.include_router(users.router, prefix="/api")
 
 # WebSocket маршрут для подключения пользователей по их username.
 @app.websocket("/api/ws/{username}")
